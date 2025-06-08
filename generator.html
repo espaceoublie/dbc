@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HydroLIFE DBC Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(to bottom right, #00aaff, #ffffff);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #0077cc;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    iframe {
+      border: none;
+      width: 100%;
+      max-width: 360px;
+      height: 640px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    #downloadBtn {
+      display: none;
+      margin-top: 10px;
+      background: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <h1>HydroLIFE Digital Business Card Generator</h1>
+  <form id="dbcForm">
+    <label>Full Name</label>
+    <input type="text" id="name" required />
+
+    <label>Certification Title in Name</label>
+    <select id="cert">
+      <option value="C.HydroT">C.HydroT</option>
+      <option value="CA.HydroT">CA.HydroT</option>
+      <option value="CM.HydroT">CM.HydroT</option>
+    </select>
+
+    <label>Role/Position</label>
+    <select id="title">
+      <option value="Founder">Founder</option>
+      <option value="Hydrotherapist">Hydrotherapist</option>
+    </select>
+
+    <label>Phone (for WhatsApp)</label>
+    <input type="text" id="phone" placeholder="628xxxx" required />
+
+    <label>Instagram Username</label>
+    <input type="text" id="instagram" required />
+
+    <label>City</label>
+    <input type="text" id="city" required />
+
+    <label>Province</label>
+    <select id="province" required>
+      <option value="Aceh">Aceh</option>
+      <option value="Bali">Bali</option>
+      <option value="Banten">Banten</option>
+      <option value="Bengkulu">Bengkulu</option>
+      <option value="Central Java">Central Java</option>
+      <option value="Central Kalimantan">Central Kalimantan</option>
+      <option value="Central Sulawesi">Central Sulawesi</option>
+      <option value="East Java">East Java</option>
+      <option value="East Kalimantan">East Kalimantan</option>
+      <option value="East Nusa Tenggara">East Nusa Tenggara</option>
+      <option value="Gorontalo">Gorontalo</option>
+      <option value="Jakarta">Jakarta</option>
+      <option value="Jambi">Jambi</option>
+      <option value="Lampung">Lampung</option>
+      <option value="Maluku">Maluku</option>
+      <option value="North Kalimantan">North Kalimantan</option>
+      <option value="North Maluku">North Maluku</option>
+      <option value="North Sulawesi">North Sulawesi</option>
+      <option value="North Sumatra">North Sumatra</option>
+      <option value="Papua">Papua</option>
+      <option value="Riau">Riau</option>
+      <option value="Riau Islands">Riau Islands</option>
+      <option value="Southeast Sulawesi">Southeast Sulawesi</option>
+      <option value="South Kalimantan">South Kalimantan</option>
+      <option value="South Sulawesi">South Sulawesi</option>
+      <option value="South Sumatra">South Sumatra</option>
+      <option value="West Java">West Java</option>
+      <option value="West Kalimantan">West Kalimantan</option>
+      <option value="West Nusa Tenggara">West Nusa Tenggara</option>
+      <option value="West Papua">West Papua</option>
+      <option value="West Sulawesi">West Sulawesi</option>
+      <option value="West Sumatra">West Sumatra</option>
+      <option value="Yogyakarta">Yogyakarta</option>
+    </select>
+
+    <label>Upload Photo</label>
+    <input type="file" id="photoFile" accept="image/*" required />
+
+    <label>Description</label>
+    <textarea id="desc" rows="4" required></textarea>
+
+    <button type="submit">Generate</button>
+  </form>
+
+  <button id="downloadBtn">Download DBC</button>
+
+  <iframe id="preview" class="hidden"></iframe>
+
+  <script>
+    document.getElementById("dbcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const cert = document.getElementById("cert").value;
+      const title = document.getElementById("title").value;
+      const phone = document.getElementById("phone").value;
+      const instagram = document.getElementById("instagram").value;
+      const city = document.getElementById("city").value;
+      const province = document.getElementById("province").value;
+      const desc = document.getElementById("desc").value.replace(/\n/g, '<br>');
+      const location = `${city}, ${province}`;
+      const logoUrl = "https://espaceoublie.github.io/dbc/logo.png";
+
+      const reader = new FileReader();
+      const file = document.getElementById("photoFile").files[0];
+
+      reader.onloadend = function () {
+        const photoUrl = reader.result;
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'>
+<style>
+body{margin:0;font-family:sans-serif;background:linear-gradient(to bottom right,#00aaff,#ffffff);display:flex;justify-content:center;padding:40px 20px;}
+.card-wrapper{width:100%;max-width:360px;text-align:center;}
+.card-body{position:relative;}
+.top-box,.bottom-box{background:white;border-radius:30px;padding:30px 20px 20px;box-shadow:0 4px 12px rgba(0,0,0,0.1);}
+.gap-spacer{height:20px;position:relative;}
+.photo{width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:center top;border:6px solid #00aaff;background:white;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;}
+.logo{max-height:120px;}
+h2{margin:0;font-size:20px;font-weight:bold;color:#0077cc;}.title{font-weight:500;margin:5px 0;color:#444;}.desc{font-size:13px;color:#555;margin-top:10px;margin-bottom:20px;line-height:1.5;}
+.btn{position:relative;background:#00aaff;color:white;padding:12px 20px;border-radius:20px;text-decoration:none;margin:10px auto;font-size:15px;max-width:280px;font-weight:bold;text-align:center;display:block;}
+.btn .icon{position:absolute;left:20px;top:50%;transform:translateY(-50%);font-size:18px;width:24px;text-align:center;}
+.btn:hover{background:#005fa3;}
+</style></head>
+<body><div class="card-wrapper"><div class="card-body">
+<div class="top-box"><br><br><img src="${logoUrl}" alt="Logo" class="logo"><br><br><br></div>
+<div class="gap-spacer"><img src="${photoUrl}" alt="${name}" class="photo"></div>
+<div class="bottom-box"><br><br><br>
+<h2>${name}, ${cert}</h2><div class="title">${title}</div>
+<div class="desc">${desc}</div>
+<a class="btn" href="https://wa.me/${phone}" target="_blank"><span class="icon"><i class="fas fa-phone"></i></span>WhatsApp</a>
+<a class="btn" href="#"><span class="icon"><i class="fas fa-map-marker-alt"></i></span>${location}</a>
+<a class="btn" href="https://instagram.com/${instagram}" target="_blank"><span class="icon"><i class="fab fa-instagram"></i></span>Instagram</a>
+<a class="btn" href="#" target="_blank"><span class="icon"><i class="fas fa-user-plus"></i></span>Add to Contacts</a>
+</div></div></div></body></html>`;
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const previewFrame = document.getElementById("preview");
+        previewFrame.src = url;
+        previewFrame.classList.remove("hidden");
+
+        const downloadBtn = document.getElementById("downloadBtn");
+        downloadBtn.style.display = "inline-block";
+        downloadBtn.onclick = () => {
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${name.replace(/\s+/g, "_").toLowerCase()}_dbc.html`;
+          a.click();
+        };
+      };
+
+      if (file) reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
