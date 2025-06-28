@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HydroLIFE - Certified Hydrotherapists Community</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0077cc;
+      --secondary: #00aaff;
+      --light: #f8f9fa;
+      --dark: #343a40;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 2rem;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      opacity: 0.8;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1543351611-58f69d7c1781?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: white;
+      padding-top: 80px;
+    }
+    
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--secondary);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      margin-left: 1rem;
+    }
+    
+    .section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .section-title p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .about {
+      background-color: var(--light);
+    }
+    
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    
+    .about-text {
+      flex: 1;
+    }
+    
+    .about-image {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .services {
+      background: white;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .service-card {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .service-icon {
+      font-size: 3rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .therapists {
+      background-color: var(--light);
+    }
+    
+    .therapists-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .therapist-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    
+    .therapist-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .therapist-image {
+      height: 250px;
+      overflow: hidden;
+    }
+    
+    .therapist-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .therapist-card:hover .therapist-image img {
+      transform: scale(1.1);
+    }
+    
+    .therapist-info {
+      padding: 1.5rem;
+    }
+    
+    .therapist-info h3 {
+      margin: 0 0 0.5rem;
+      color: var(--primary);
+    }
+    
+    .therapist-info p {
+      color: #666;
+      margin: 0.3rem 0;
+    }
+    
+    .cert-badge {
+      display: inline-block;
+      background: var(--secondary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+    }
+    
+    .contact {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+    
+    .contact .section-title h2,
+    .contact .section-title p {
+      color: white;
+    }
+    
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+    
+    .footer-links li {
+      margin: 0 1rem;
+    }
+    
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .social-links {
+      margin: 2rem 0;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      color: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .about-content {
+        flex-direction: column;
+      }
+      
+      .btn-outline {
+        margin-left: 0;
+        margin-top: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <img src="https://espaceoublie.github.io/dbc/logo.png" alt="HydroLIFE Logo">
+          HydroLIFE
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#therapists">Therapists</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Certified Hydrotherapists Community</h1>
+        <p>HydroLIFE is a professional community of certified hydrotherapists dedicated to improving lives through aquatic therapy. Our members are trained and certified to provide specialized water-based treatments.</p>
+        <a href="#therapists" class="btn">Find a Therapist</a>
+        <a href="#contact" class="btn btn-outline">Get Certified</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section about">
+    <div class="container">
+      <div class="section-title">
+        <h2>About HydroLIFE</h2>
+        <p>Our mission is to promote professional standards in hydrotherapy and connect clients with qualified practitioners across Indonesia.</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <h3>Professional Hydrotherapy Network</h3>
+          <p>HydroLIFE was founded to establish a network of certified hydrotherapists who meet rigorous professional standards. Our certification program ensures all members have the necessary skills and knowledge to provide safe, effective aquatic therapy.</p>
+          <p>We offer three levels of certification: Certified Hydrotherapist (C.HydroT), Certified Advanced Hydrotherapist (CA.HydroT), and Certified Master Hydrotherapist (CM.HydroT). Each level requires specific training and demonstrated competency.</p>
+          <a href="#services" class="btn">Our Services</a>
+        </div>
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80" alt="Hydrotherapy session">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section services">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Services</h2>
+        <p>Hydrotherapy offers numerous benefits for various conditions. Our certified therapists provide specialized treatments tailored to individual needs.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3>Neurosensory Hydrotherapy</h3>
+          <p>Specialized aquatic therapy for neurological conditions, sensory processing disorders, and brain injuries using water's unique properties to stimulate neural pathways.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-child"></i>
+          </div>
+          <h3>Pediatric Hydrotherapy</h3>
+          <p>Therapeutic interventions for children with special needs, developmental delays, or physical disabilities in a fun, supportive aquatic environment.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-bone"></i>
+          </div>
+          <h3>Musculoskeletal Rehabilitation</h3>
+          <p>Water-based exercises and treatments for injury recovery, arthritis, chronic pain, and post-surgical rehabilitation with reduced joint stress.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3>Aquatic Fitness</h3>
+          <p>Low-impact fitness programs for all ages and fitness levels, including prenatal water exercise and senior aquatic fitness classes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="therapists" class="section therapists">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Certified Therapists</h2>
+        <p>Connect with qualified hydrotherapists in your area. All HydroLIFE members maintain current certification and professional standards.</p>
+      </div>
+      <div class="therapists-grid">
+        <div class="therapist-card">
+          <div class="therapist-image">
+            <img src="https://espaceoublie.github.io/dbc/ifa.png" alt="Ifa Sagir">
+          </div>
+          <div class="therapist-info">
+            <h3>Ifa Sagir</h3>
+            <p>Founder</p>
+            <p>Bandung, West Java</p>
+            <span class="cert-badge">CM.HydroT</span>
+          </div>
+        </div>
+        <div class="therapist-card">
+          <div class="therapist-image">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Therapist 2">
+          </div>
+          <div class="therapist-info">
+            <h3>Sarah Wijaya</h3>
+            <p>Pediatric Specialist</p>
+            <p>Jakarta</p>
+            <span class="cert-badge">CA.HydroT</span>
+          </div>
+        </div>
+        <div class="therapist-card">
+          <div class="therapist-image">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Therapist 3">
+          </div>
+          <div class="therapist-info">
+            <h3>Budi Santoso</h3>
+            <p>Sports Rehabilitation</p>
+            <p>Surabaya, East Java</p>
+            <span class="cert-badge">C.HydroT</span>
+          </div>
+        </div>
+        <div class="therapist-card">
+          <div class="therapist-image">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Therapist 4">
+          </div>
+          <div class="therapist-info">
+            <h3>Dewi Lestari</h3>
+            <p>Senior Fitness</p>
+            <p>Bali</p>
+            <span class="cert-badge">CA.HydroT</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="dbc-generator.html" class="btn">Create Your Therapist Profile</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact Us</h2>
+        <p>Get in touch to learn more about our certification program or to find a therapist in your area.</p>
+      </div>
+      <div class="contact-form">
+        <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" class="form-control">
+              <option value="certification">Certification Inquiry</option>
+              <option value="therapist">Find a Therapist</option>
+              <option value="general">General Question</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="logo" style="justify-content: center; color: white;">
+        <img src="https://espaceoublie.github.io/dbc/logo.png" alt="HydroLIFE Logo">
+        HydroLIFE
+      </div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#therapists">Therapists</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p class="copyright">© 2023 HydroLIFE.co.id - All Rights Reserved</p>
+    </div>
+  </footer>
+</body>
+</html>
